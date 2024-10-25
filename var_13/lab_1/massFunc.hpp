@@ -1,5 +1,4 @@
-﻿
-#ifndef MASS_FUNC
+﻿#ifndef MASS_FUNC
 #define MASS_FUNC
 
 #include <iostream>

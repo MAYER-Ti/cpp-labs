@@ -10,14 +10,19 @@
 // Задание: В массиве целых чисел определить наибольшую длину монотонно убывающего фрагмента
 // последовательности(то есть такого фрагмента, где каждый элемент меньше предыдущего)
 // Примечание:
-#include "massFunc.cpp"
+#include "massFunc.hpp"
 
 int main()
 {
 	const int SIZE = 5;
 	int mass[SIZE]  { 5, 4, 3, 10, 9 };
 	int mass2[SIZE] { 1, 3, 3, 3, 2 };
-	int* pmass = new int[SIZE](1, 2, 3, 2, 1);
+	int dinamicSize = 0;
+	std::cout << "Write dinamic array size: ";
+	std::cin >> dinamicSize;
+	int* pmass = new int[dinamicSize];
+	for (int i = 0; i < dinamicSize; i++)
+		pmass[i] = std::rand();
 	int nullMass[SIZE] {0, 0, 0, 0, 0};
 	int* pNullMass = nullptr;
 
@@ -31,7 +36,7 @@ int main()
 
 	PaintArr(pmass, SIZE);
 	std::cout << "Longest decreasing sequence: "
-		      << GetLongestDecreasingSequence(pmass, SIZE) << '\n';
+		      << GetLongestDecreasingSequence(pmass, dinamicSize) << '\n';
 
 	PaintArr(nullMass, SIZE);
 	std::cout << "Longest decreasing sequence: "

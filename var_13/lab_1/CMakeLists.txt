@@ -3,7 +3,7 @@
 #
 
 # Добавьте источник в исполняемый файл этого проекта.
-add_executable (lab_1_mass "main.cpp" "massFunc.cpp")
+add_executable (lab_1_mass "main.cpp" "massFunc.hpp")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET lab_1_mass PROPERTY CXX_STANDARD 20)
