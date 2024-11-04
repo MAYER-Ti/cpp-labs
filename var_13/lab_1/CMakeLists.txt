@@ -1,12 +1,13 @@
-﻿# CMakeList.txt: проект CMake для lab_1_mass; включите исходный код и определения,
-# укажите здесь логику для конкретного проекта.
-#
+﻿cmake_minimum_required(VERSION 3.5)
 
-# Добавьте источник в исполняемый файл этого проекта.
-add_executable (lab_1_mass "main.cpp" "massFunc.hpp")
+project(lab_1_mass LANGUAGES CXX)
 
-if (CMAKE_VERSION VERSION_GREATER 3.12)
-  set_property(TARGET lab_1_mass PROPERTY CXX_STANDARD 20)
-endif()
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# TODO: Добавьте тесты и целевые объекты, если это необходимо.
+add_executable (lab_1_mass main.cpp)
+
+install(TARGETS lab_1_mass
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+
+
