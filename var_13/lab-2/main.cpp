@@ -14,13 +14,30 @@
 int main()
 {
     const int MAX_N_STRING = 256;
-    char* pBuffer = new char[MAX_N_STRING];
+    char* pBuffer;
+    char* pBuffer2;
+
+    try {
+        pBuffer = new char[MAX_N_STRING];
+        pBuffer2 = new char[MAX_N_STRING];
+    } catch (...) {
+        delete[] pBuffer;
+        delete[] pBuffer2;
+        std::cout << "Ошибка выделения памяти!";
+        return 1;
+    }
+
+    bool isEvenRow = false;
     std::ifstream file("./input.txt");
     if(file.is_open()){
-        while(file.getline(pBuffer, MAX_N_STRING)){
-            std::cout << "Строка: " << pBuffer << '\n' <<
-                         "Одинаковые символы char*: " << HaveEqualsChar(pBuffer) << '\n' <<
-                         "Одинаковые символы std::string: " << HaveEqualsChar(std::string(pBuffer)) << '\n';
+        while(file.getline((isEvenRow)?(pBuffer2):(pBuffer), MAX_N_STRING)){
+            if(isEvenRow){
+                std::cout << "Строка 1: " << pBuffer << '\n' <<
+                             "Строка 2: " << pBuffer2 << '\n' <<
+                             "Есть ли одниковые символы char*: " << haveEqualsChar(pBuffer, pBuffer2) << '\n' <<
+                             "Есть ли одинаковые символы std::string: " << haveEqualsChar(std::string(pBuffer), std::string(pBuffer2)) << '\n';
+            }
+            isEvenRow = !isEvenRow;
         }
     }
     else {
@@ -28,5 +45,6 @@ int main()
     }
     file.close();
     delete[] pBuffer;
+    delete[] pBuffer2;
     return 0;
 }

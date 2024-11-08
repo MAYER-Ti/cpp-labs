@@ -4,8 +4,8 @@
 //#include <cctype>
 #include <string>
 
-bool HaveEqualsChar(const char* str);
+bool haveEqualsChar(const char* str1, const char* str2);
 
-bool HaveEqualsChar(const std::string& str);
+bool haveEqualsChar(const std::string& str1, const std::string& str2);
 
 #endif //ISEQUALCHAR

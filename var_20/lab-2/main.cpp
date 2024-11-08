@@ -1,8 +1,7 @@
 #include <iostream>
 #include <fstream>
-#include <string>
 #include <cctype>
-#include <algorithm>
+#include <map>
 
 /// Сусликов В.А. 30022 Вариант 20
 /// Задание:
@@ -14,37 +13,31 @@
 ///  string, но запрещается(!) пользоваться функциями из <cstring>.
 ///
 
-bool Contain(const char* str, const char& c){
-    while(*str){
-        if(std::tolower(*str) == std::tolower(c)){
-            return true;
-        }
-        str++;
-    }
-    return false;
-}
-
-void GetSortedInAsciiEqualChars(const char* str1, const char* str2, char* sortedEqualChars){
+void getSortedInAsciiEqualChars(const char* str1, const char* str2, char* sortedEqualChars){
+    static const int MAX_CODE_ASCII = 128;
     int iEqualChars = 0;
-    while(*str1){
-        //Если буква
-        if(std::isalpha(*str1)){
-            //Если такого символа еще не было
-            if(!Contain(sortedEqualChars, *str1)){
-                //Если такой символ есть во второй строке
-                if(Contain(str2, *str1)){
-                    sortedEqualChars[iEqualChars] = *str1;
-                    iEqualChars++;
-                }
-            }
+    std::map<char, int> alphas;
+
+    while(*str1 || *str2){
+        if(static_cast<int>(*str1) < MAX_CODE_ASCII){
+            alphas[std::tolower(*str1)]++;
+        }
+        if(static_cast<int>(*str2) < MAX_CODE_ASCII){
+            alphas[std::tolower(*str2)]++;
         }
         str1++;
+        str2++;
     }
-    std::string SortedStr(sortedEqualChars);
-    std::sort(SortedStr.begin(), SortedStr.end());
-    for(int i = 0; i < SortedStr.size(); i++){
-        sortedEqualChars[i] = SortedStr[i];
+    std::cout << "size " << alphas.size() << "\n";
+    // 0й символ ASCII это конец строки
+    for(int iC = 1; iC < MAX_CODE_ASCII; ++iC){
+        auto itC = alphas.find(iC);
+        if(itC != alphas.end()){
+            sortedEqualChars[iEqualChars] = itC->first;
+            iEqualChars++;
+        }
     }
+    sortedEqualChars[iEqualChars] = '\0';
 }
 
 int main()
@@ -66,12 +59,7 @@ int main()
     file.close();
 
     //Обработка данных
-    GetSortedInAsciiEqualChars(pBuffer, pBuffer2, pBufferOut);
-
-    std::string tmp = "bacd";
-    std::string& stmp = tmp;
-    std::sort(stmp.begin(), stmp.end());
-    std::cout << tmp.c_str() << "!\n";
+    getSortedInAsciiEqualChars(pBuffer, pBuffer2, pBufferOut);
 
     //Вывод обработанных данных
     std::cout << "Строка 1: " << pBuffer << '\n' <<
