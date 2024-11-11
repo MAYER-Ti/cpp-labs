@@ -18,23 +18,28 @@ void getSortedInAsciiEqualChars(const char* str1, const char* str2, char* sorted
     int iEqualChars = 0;
     std::map<char, int> alphas;
 
-    while(*str1 || *str2){
-        if(static_cast<int>(*str1) < MAX_CODE_ASCII){
-            alphas[std::tolower(*str1)]++;
-        }
-        if(static_cast<int>(*str2) < MAX_CODE_ASCII){
-            alphas[std::tolower(*str2)]++;
+    while(*str1){
+        if((32 < static_cast<int>(*str1)) && (static_cast<int>(*str1) < MAX_CODE_ASCII)){
+            alphas[(*str1)]++;
         }
         str1++;
+    }
+    while(*str2){
+        if((32 < static_cast<int>(*str2)) && (static_cast<int>(*str2) < MAX_CODE_ASCII)){
+            alphas[(*str2)]++;
+        }
         str2++;
     }
     std::cout << "size " << alphas.size() << "\n";
     // 0й символ ASCII это конец строки
-    for(int iC = 1; iC < MAX_CODE_ASCII; ++iC){
+    for(int iC = 32; iC < MAX_CODE_ASCII; ++iC){
         auto itC = alphas.find(iC);
         if(itC != alphas.end()){
-            sortedEqualChars[iEqualChars] = itC->first;
-            iEqualChars++;
+            std::cout << static_cast<char>(itC->first) << "\n";
+            if(itC->second > 1){
+                sortedEqualChars[iEqualChars] = itC->first;
+                iEqualChars++;
+            }
         }
     }
     sortedEqualChars[iEqualChars] = '\0';
