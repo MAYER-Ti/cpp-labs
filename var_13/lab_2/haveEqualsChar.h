@@ -1,7 +1,6 @@
 #ifndef ISEQUALCHAR
 #define ISEQUALCHAR
 
-//#include <cctype>
 #include <string>
 
 bool haveEqualsChar(const char* str1, const char* str2);

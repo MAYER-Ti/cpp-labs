@@ -14,12 +14,31 @@
 int main()
 {
     const int MAX_N_STRING = 256;
-    char* pBuffer;
-    char* pBuffer2;
+    char* pBuffer = nullptr;
+    char* pBuffer2 = nullptr;
 
     try {
         pBuffer = new char[MAX_N_STRING];
         pBuffer2 = new char[MAX_N_STRING];
+        bool isEvenRow = false;
+        std::ifstream file("./input.txt");
+        if(file.is_open()){
+            while(file.getline((isEvenRow)?(pBuffer2):(pBuffer), MAX_N_STRING)){
+                if(isEvenRow){
+                    std::cout << "Строка 1: " << pBuffer << '\n' <<
+                                 "Строка 2: " << pBuffer2 << '\n' <<
+                                 "Есть ли одниковые символы char*: " << haveEqualsChar(pBuffer, pBuffer2) << '\n' <<
+                                 "Есть ли одинаковые символы std::string: " << haveEqualsChar(std::string(pBuffer), std::string(pBuffer2)) << '\n';
+                }
+                isEvenRow = !isEvenRow;
+            }
+        }
+        else {
+            std::cout << "Ошибка!: файл не открыт";
+        }
+        file.close();
+        delete[] pBuffer;
+        delete[] pBuffer2;
     } catch (...) {
         delete[] pBuffer;
         delete[] pBuffer2;
@@ -27,24 +46,6 @@ int main()
         return 1;
     }
 
-    bool isEvenRow = false;
-    std::ifstream file("./input.txt");
-    if(file.is_open()){
-        while(file.getline((isEvenRow)?(pBuffer2):(pBuffer), MAX_N_STRING)){
-            if(isEvenRow){
-                std::cout << "Строка 1: " << pBuffer << '\n' <<
-                             "Строка 2: " << pBuffer2 << '\n' <<
-                             "Есть ли одниковые символы char*: " << haveEqualsChar(pBuffer, pBuffer2) << '\n' <<
-                             "Есть ли одинаковые символы std::string: " << haveEqualsChar(std::string(pBuffer), std::string(pBuffer2)) << '\n';
-            }
-            isEvenRow = !isEvenRow;
-        }
-    }
-    else {
-        std::cout << "Ошибка!: файл не открыт";
-    }
-    file.close();
-    delete[] pBuffer;
-    delete[] pBuffer2;
+
     return 0;
 }
