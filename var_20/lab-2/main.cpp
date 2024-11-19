@@ -2,6 +2,7 @@
 #include <fstream>
 #include <cctype>
 #include <map>
+#include <cstring>
 
 /// Сусликов В.А. 30022 Вариант 20
 /// Задание:
