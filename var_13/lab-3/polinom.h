@@ -9,7 +9,7 @@ public:
     Polinom();
     Polinom(double k[], int degree);
     ///
-    /// \brief getValue
+    /// \brief operator ()
     /// \param x
     /// \return
     /// Возвращает значение полинома при заданном значении
