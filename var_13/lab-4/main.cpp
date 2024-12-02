@@ -16,12 +16,11 @@
 /// • Вывести информацию о фигурах на экран ещё раз
 ///
 
-
-
 int main()
 {
+    std::vector<Shape*> vShapes;
     try {
-        std::vector<Shape*> vShapes;
+
         vShapes.push_back(new Rectangle(Point(0.0, 0.0), Point(1.0, 1.0)));
         vShapes.push_back(new Romb(Point(15.0, 0.0), 15.0, 10.0));
         vShapes.push_back(new Rectangle(Point(-10.0, -10.0), Point(10.0, 10.0)));
@@ -47,9 +46,17 @@ int main()
             shape->scale(2.0);
             std::cout << *shape << '\n';
         }
+
+        for (Shape* shape : vShapes) {
+            delete shape;
+        }
     }
     catch (const std::exception& e) {
         std::cerr << e.what() << "\n";
+
+        for (Shape* shape : vShapes) {
+            delete shape;
+        }
     }
     return 0;
 }

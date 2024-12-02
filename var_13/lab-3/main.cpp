@@ -14,11 +14,12 @@
 int main()
 {
     double koefs1[] {1.5, 2.9, -0.3};
-    double koefs2[] {0, 5.1, -1.4};
+    double koefs2[] {0, 5.1, -1.4, 3.2};
+
 
     try {
-        Polinom pol1(koefs1, 3);
-        Polinom pol2(koefs2, 3);
+        Polinom pol1(koefs1, sizeof(koefs1)/sizeof(double));
+        Polinom pol2(koefs2, sizeof(koefs2)/sizeof(double));
 
         std::cout << "Полином 1:\t" << pol1 << '\n';
         std::cout << "Полином 2:\t" << pol2 << '\n';
@@ -26,7 +27,7 @@ int main()
         std::cout << "Разница:\t" << pol1 - pol2 << '\n';
         std::cout << "Произведение:\t" << pol1 * pol2 << '\n';
 
-        Polinom polExeption(koefs2, 100); // исключение!
+        //Polinom polExeption(koefs2, 100); // исключение!
     }
     catch (std::invalid_argument& e) {
         std::cerr << e.what() << '\n';

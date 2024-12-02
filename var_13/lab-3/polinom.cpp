@@ -9,12 +9,14 @@ Polinom::Polinom(double k[], int degree)
         throw std::invalid_argument("Некорректная степень! Степень должна быть меньше 100!");
     }
 
+    m_currentDegree = degree;
+
     for (int i = 0; i < degree; ++i) {
         m_koefs[i] = k[i];
     }
 }
 
-double Polinom::operator()(double x)
+double Polinom::operator()(double x) const
 {
     double result = 0.0;
     for (int i = 0; i < MAX_DEGREE; ++i) {
@@ -23,7 +25,7 @@ double Polinom::operator()(double x)
     return result;
 }
 
-Polinom Polinom::operator+(const Polinom &pol)
+Polinom Polinom::operator+(const Polinom &pol) const
 {
     Polinom res;
     for (int i = 0; i < MAX_DEGREE; ++i) {
@@ -32,7 +34,7 @@ Polinom Polinom::operator+(const Polinom &pol)
     return res;
 }
 
-Polinom Polinom::operator-(const Polinom &pol)
+Polinom Polinom::operator-(const Polinom &pol) const
 {
     Polinom res;
     for (int i = 0; i < MAX_DEGREE; ++i) {
@@ -41,11 +43,15 @@ Polinom Polinom::operator-(const Polinom &pol)
     return res;
 }
 
-Polinom Polinom::operator*(const Polinom &pol)
+Polinom Polinom::operator*(const Polinom &pol) const
 {
+    if (m_currentDegree + pol.m_currentDegree >= MAX_DEGREE) {
+        throw std::invalid_argument("Слишком большая степень полинома после умножения!");
+    }
     Polinom res;
     for (int i = 0; i < MAX_DEGREE; ++i) {
         for (int j = 0; j < MAX_DEGREE; ++j) {
+
             res.m_koefs[i+j] += m_koefs[i] * pol.m_koefs[j];
         }
     }

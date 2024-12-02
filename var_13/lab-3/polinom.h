@@ -13,12 +13,13 @@ public:
     /// \param x
     /// \return
     /// Возвращает значение полинома при заданном значении
-    double operator()(double x);
-    Polinom operator+(const Polinom& pol);
-    Polinom operator-(const Polinom& pol);
-    Polinom operator*(const Polinom& pol);
+    double operator()(double x) const;
+    Polinom operator+(const Polinom& pol) const;
+    Polinom operator-(const Polinom& pol) const;
+    Polinom operator*(const Polinom& pol) const;
     friend std::ostream& operator<<(std::ostream& out, const Polinom& pol);
 private:
+    int m_currentDegree = 0;
     ///
     /// \brief MAX_DEGREE
     /// Максимальная степень
