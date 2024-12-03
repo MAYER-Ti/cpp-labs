@@ -3,13 +3,11 @@
 
 Polinom::Polinom() {}
 
-Polinom::Polinom(double k[], int degree)
+Polinom::Polinom(double k[], int degree) : m_currentDegree(degree)
 {
     if (degree >= MAX_DEGREE) {
         throw std::invalid_argument("Некорректная степень! Степень должна быть меньше 100!");
     }
-
-    m_currentDegree = degree;
 
     for (int i = 0; i < degree; ++i) {
         m_koefs[i] = k[i];
@@ -63,9 +61,15 @@ std::ostream& operator<<(std::ostream& out, const Polinom& poly) {
     for (int i = Polinom::MAX_DEGREE - 1; i >= 0; --i) {
         if (poly.m_koefs[i] != 0) {
             if (!isFirst) {
-                out << " + ";
+                if (poly.m_koefs[i] < 0) {
+                    out << " - ";
+                }
+                else {
+                    out << " + ";
+                }
+
             }
-            out << poly.m_koefs[i] << "x^" << i;
+            out << std::abs(poly.m_koefs[i]) << "x^" << i;
             isFirst = false;
         }
     }

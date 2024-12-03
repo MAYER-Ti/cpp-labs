@@ -39,7 +39,7 @@ int main()
             std::cout << *shape << '\n';
         }
 
-        std::sort(vShapes.begin(), vShapes.end());
+        std::sort(vShapes.begin(), vShapes.end(), [](Shape* sh1, Shape* sh2) {return *sh1 < *sh2;});
 
         std::cout << "\n" << "Фигуры после сортировки по площади" << "\n";
         for (Shape* shape : vShapes) {
